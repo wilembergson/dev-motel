@@ -7,9 +7,9 @@ public class NewCustomerDTO {
 
     private String name;
 
-    private Integer cpf;
+    private Long cpf;
 
-    private Integer phone;
+    private Long phone;
 
     private String email;
 

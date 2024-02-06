@@ -8,6 +8,10 @@ import lombok.Data;
 @Entity
 public class Emploeey extends GeneralUser{
 
-    @Column(name = "registration")
-    private Integer registration;
+    public Emploeey(String id, String name, Long phone, String email, String username, String password, String role, boolean active, Long registration) {
+        super(id, name, phone, email, username, password, role, active);
+        this.registration = registration;
+    }
+    @Column(name = "registration", unique = true)
+    private Long registration;
 }
