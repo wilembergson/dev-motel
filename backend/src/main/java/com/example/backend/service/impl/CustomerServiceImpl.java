@@ -6,6 +6,7 @@ import com.example.backend.repository.CustomerRepository;
 import com.example.backend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.UUID;
 
@@ -16,14 +17,14 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository repository;
 
     public void newCustomer(NewCustomerDTO dto){
-        System.out.println(dto);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.getPassword());
         Customer customer = new Customer(
                 UUID.randomUUID().toString(),
                 dto.getName(),
                 dto.getPhone(),
                 dto.getEmail(),
                 dto.getUsername(),
-                dto.getPassword(),
+                encryptedPassword,
                 "CUSTOMER",
                 true,
                 dto.getCpf()
