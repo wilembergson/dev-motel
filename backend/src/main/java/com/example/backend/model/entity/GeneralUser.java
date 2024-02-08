@@ -30,9 +30,6 @@ public abstract class GeneralUser {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-    private String role;
-
     @Column(name = "active")
     private boolean active;
 }
