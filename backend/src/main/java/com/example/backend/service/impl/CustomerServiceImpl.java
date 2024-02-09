@@ -17,16 +17,16 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository repository;
 
     public void newCustomer(NewCustomerDTO dto){
-        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.getPassword());
+        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
         Customer customer = new Customer(
                 UUID.randomUUID().toString(),
-                dto.getName(),
-                dto.getPhone(),
-                dto.getEmail(),
-                dto.getUsername(),
+                dto.name(),
+                dto.phone(),
+                dto.email(),
+                dto.login(),
                 encryptedPassword,
                 true,
-                dto.getCpf()
+                dto.cpf()
         );
         repository.save(customer);
     }

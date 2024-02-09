@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
-public abstract class GeneralUser {
+public abstract class GeneralUser implements UserDetails {
 
     @Id
     @Column(name = "id")
@@ -24,8 +25,8 @@ public abstract class GeneralUser {
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "username", unique = true)
-    private String username;
+    @Column(name = "login", unique = true)
+    private String login;
 
     @Column(name = "password")
     private String password;

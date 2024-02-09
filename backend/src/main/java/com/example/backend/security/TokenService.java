@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.backend.exceptions.DefaultError;
+import com.example.backend.model.entity.Customer;
 import com.example.backend.model.entity.GeneralUser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,12 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String gerarToken(GeneralUser usr){
+    public String gerarToken(Customer usr){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("autorizacao-api")
-                    .withSubject(usr.getUsername())
+                    .withSubject(usr.getLogin())
                     .withExpiresAt(tempoExpiracao())
                     .sign(algorithm);
             return token;

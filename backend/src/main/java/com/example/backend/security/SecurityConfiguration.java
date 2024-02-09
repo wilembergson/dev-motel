@@ -44,8 +44,9 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/customer/new-customer")).permitAll()
+                        .requestMatchers(mvc.pattern(HttpMethod.POST, "/customer/login")).permitAll()
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/emploeey/new-emploeey")).permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults())

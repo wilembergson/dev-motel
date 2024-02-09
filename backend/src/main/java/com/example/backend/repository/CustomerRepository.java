@@ -7,6 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.UUID;
 
-public interface CustomerRepository extends JpaRepository<Customer, UUID> {
-    UserDetails findByUsername(String username);
+public interface CustomerRepository extends JpaRepository<Customer, String> {
+    UserDetails findByLogin(String login);
 }
