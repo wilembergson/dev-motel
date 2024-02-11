@@ -2,6 +2,7 @@ package com.example.backend.security;
 
 import com.example.backend.exceptions.DefaultError;
 import com.example.backend.repository.CustomerRepository;
+import com.example.backend.repository.EmploeeyRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,13 +25,22 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Autowired
+    EmploeeyRepository emploeeyRepository;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try{
             var token = this.recuperarToken(request);
             if (token != null) {
-                var login = tokenService.validarToken(token);
-                UserDetails user = customerRepository.findByLogin(login);
+                UserDetails user;
+                var tokenPayload = tokenService.validateToken(token);
+                //System.out.println("MINHA ROLE: "+tokenPayload.role());
+                if(tokenPayload.role() == "CUSTOMER"){
+                    user = customerRepository.findByLogin(tokenPayload.login());
+                }else {
+                    user = emploeeyRepository.findByLogin(tokenPayload.login());
+                }
                 var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

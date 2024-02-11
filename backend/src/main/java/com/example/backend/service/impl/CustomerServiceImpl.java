@@ -26,7 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
                 dto.login(),
                 encryptedPassword,
                 true,
-                dto.cpf()
+                dto.cpf(),
+                "CUSTOMER"
         );
         repository.save(customer);
     }

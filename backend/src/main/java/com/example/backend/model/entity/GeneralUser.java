@@ -33,4 +33,8 @@ public abstract class GeneralUser implements UserDetails {
 
     @Column(name = "active")
     private boolean active;
+
+    @Column(name = "role")
+    private String role;
+
 }

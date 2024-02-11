@@ -4,7 +4,6 @@ import com.example.backend.model.dto.LoginDTO;
 import com.example.backend.model.dto.LoginResponseDTO;
 import com.example.backend.model.dto.NewCustomerDTO;
 import com.example.backend.model.entity.Customer;
-import com.example.backend.model.entity.GeneralUser;
 import com.example.backend.security.TokenService;
 import com.example.backend.service.CustomerService;
 import jakarta.validation.Valid;
@@ -44,7 +43,7 @@ public class CustomerController {
         try {
             var usernamePassword = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
             var auth = this.authenticationManager.authenticate(usernamePassword);
-            var token = tokenService.gerarToken((Customer) auth.getPrincipal());
+            var token = tokenService.generateToken((Customer) auth.getPrincipal());
             return ResponseEntity.ok(new LoginResponseDTO(token));
         }catch (Exception e){
             return ResponseEntity

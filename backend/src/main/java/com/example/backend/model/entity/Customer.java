@@ -15,8 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Customer extends GeneralUser{
 
-    public Customer(String id, String name, Long phone, String email, String login, String password, boolean active, Long cpf) {
-        super(id, name, phone, email, login, password, active);
+    public Customer(String id, String name, Long phone, String email, String login, String password, boolean active, Long cpf, String role) {
+        super(id, name, phone, email, login, password, active, role);
         this.cpf = cpf;
     }
     @Column(name = "cfp", unique = true)

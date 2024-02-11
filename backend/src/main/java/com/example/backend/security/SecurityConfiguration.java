@@ -46,6 +46,7 @@ public class SecurityConfiguration {
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/customer/new-customer")).permitAll()
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/customer/login")).permitAll()
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/emploeey/new-emploeey")).permitAll()
+                        .requestMatchers(mvc.pattern(HttpMethod.POST, "/emploeey/login")).permitAll()
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

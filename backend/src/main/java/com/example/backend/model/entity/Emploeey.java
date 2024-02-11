@@ -12,14 +12,10 @@ import java.util.Collection;
 @NoArgsConstructor
 public class Emploeey extends GeneralUser{
 
-    public Emploeey(String id, String name, Long phone, String email, String login, String password, String role, boolean active, Long registration) {
-        super(id, name, phone, email, login, password, active);
-        this.role = role;
+    public Emploeey(String id, String name, Long phone, String email, String login, String password, boolean active, Long registration, String role) {
+        super(id, name, phone, email, login, password, active, role);
         this.registration = registration;
     }
-
-    @Column(name = "role")
-    private String role;
 
     @Column(name = "registration", unique = true)
     private Long registration;

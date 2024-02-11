@@ -29,9 +29,9 @@ public class EmploeeyServiceImpl implements EmploeeyService {
                 dto.getEmail(),
                 dto.getUsername(),
                 encryptedPassword,
-                "EMPLOEEY",
                 true,
-                dto.getRegistration()
+                dto.getRegistration(),
+                "EMPLOEEY"
         );
         repository.save(emploeey);
     }
