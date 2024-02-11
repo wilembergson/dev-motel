@@ -24,12 +24,13 @@ public class TokenService {
     private String secret;
 
     public String generateToken(GeneralUser usr){
+
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
+            System.out.println("TA LA: "+secret);
             String token = JWT.create()
-                    .withIssuer("autorizacao-api")
-                    //.withSubject(usr.getLogin())
-                    .withClaim("login", usr.getLogin())
+                    .withIssuer("devmotel-auth-api")
+                    .withSubject(usr.getLogin())
                     .withClaim("role", usr.getRole())
                     .withExpiresAt(tempoExpiracao())
                     .sign(algorithm);
@@ -46,7 +47,7 @@ public class TokenService {
                     .withIssuer("devmotel-auth-api")
                     .build()
                     .verify(token);
-            String login = decodedJWT.getClaim("login").asString();
+            String login = decodedJWT.getSubject();
             String role = decodedJWT.getClaim("role").asString();
             return new ValidateTokenDTO(login, role);
         }catch (TokenExpiredException e){

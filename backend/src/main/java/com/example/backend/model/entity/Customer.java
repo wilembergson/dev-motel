@@ -12,6 +12,7 @@ import java.util.UUID;
 
 
 @Entity
+@Data
 @NoArgsConstructor
 public class Customer extends GeneralUser{
 

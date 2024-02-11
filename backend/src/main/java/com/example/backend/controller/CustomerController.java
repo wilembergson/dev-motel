@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.dto.CustomerInfoDTO;
 import com.example.backend.model.dto.LoginDTO;
 import com.example.backend.model.dto.LoginResponseDTO;
 import com.example.backend.model.dto.NewCustomerDTO;
@@ -12,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -50,5 +48,11 @@ public class CustomerController {
                     .status(HttpStatus.FORBIDDEN)
                     .body(Map.of("mensagem", "Usuário ou senha incorretos."));
         }
+    }
+
+    @GetMapping("/get-by-cpf/{cpf}")
+    public ResponseEntity<CustomerInfoDTO> getByCpf(@PathVariable String cpf){
+        CustomerInfoDTO customer = service.getCustomerByCpf(cpf);
+        return ResponseEntity.ok(customer);
     }
 }

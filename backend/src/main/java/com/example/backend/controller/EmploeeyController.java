@@ -1,9 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.model.dto.LoginDTO;
-import com.example.backend.model.dto.LoginResponseDTO;
-import com.example.backend.model.dto.NewCustomerDTO;
-import com.example.backend.model.dto.NewEmploeeyDTO;
+import com.example.backend.model.dto.*;
 import com.example.backend.model.entity.Customer;
 import com.example.backend.model.entity.Emploeey;
 import com.example.backend.security.TokenService;
@@ -14,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -52,5 +46,11 @@ public class EmploeeyController {
                     .status(HttpStatus.FORBIDDEN)
                     .body(Map.of("mensagem", "Usuário ou senha incorretos."));
         }
+    }
+
+    @GetMapping("/get-by-registration/{registration}")
+    public ResponseEntity<EmploeeyInfoDTO> getByCpf(@PathVariable String registration){
+        EmploeeyInfoDTO emploeey = service.getEmploeeyByRegistration(registration);
+        return ResponseEntity.ok(emploeey);
     }
 }

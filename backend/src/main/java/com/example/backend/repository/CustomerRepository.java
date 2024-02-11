@@ -9,4 +9,6 @@ import java.util.UUID;
 
 public interface CustomerRepository extends JpaRepository<Customer, String> {
     UserDetails findByLogin(String login);
+
+    Customer findByCpf(Long cpf);
 }

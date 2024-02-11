@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 @Entity
+@Data
 @NoArgsConstructor
 public class Emploeey extends GeneralUser{
 
