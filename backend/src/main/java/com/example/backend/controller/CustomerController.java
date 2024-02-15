@@ -55,4 +55,9 @@ public class CustomerController {
         CustomerInfoDTO customer = service.getCustomerByCpf(cpf);
         return ResponseEntity.ok(customer);
     }
+
+    @GetMapping("/get-teste/{cpf}")
+    public ResponseEntity<String> getTesteCpf(@PathVariable String cpf){
+        return ResponseEntity.ok("CPF: "+cpf);
+    }
 }
