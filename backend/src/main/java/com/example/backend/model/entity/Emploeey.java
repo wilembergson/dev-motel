@@ -1,12 +1,15 @@
 package com.example.backend.model.entity;
 
+import com.example.backend.utils.RolesEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,7 +26,11 @@ public class Emploeey extends GeneralUser{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if(getRole() == RolesEnum.ADMIN.getRoleName()){
+            return List.of(new SimpleGrantedAuthority("ROLE_"+RolesEnum.ADMIN.getRoleName()));
+        }else{
+            return List.of(new SimpleGrantedAuthority("ROLE_"+RolesEnum.EMPLOEEY.getRoleName()));
+        }
     }
 
     @Override

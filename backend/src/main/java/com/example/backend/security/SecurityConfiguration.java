@@ -1,5 +1,6 @@
 package com.example.backend.security;
 
+import com.example.backend.utils.RolesEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,6 +48,8 @@ public class SecurityConfiguration {
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/customer/login")).permitAll()
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/emploeey/new-emploeey")).permitAll()
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/emploeey/login")).permitAll()
+                        .requestMatchers(mvc.pattern(HttpMethod.GET, "/customer/get-by-cpf/**")).hasRole(RolesEnum.CUSTOMER.getRoleName())
+                        .requestMatchers(mvc.pattern(HttpMethod.GET, "/emploeey/get-by-registration/**")).hasRole(RolesEnum.EMPLOEEY.getRoleName())
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

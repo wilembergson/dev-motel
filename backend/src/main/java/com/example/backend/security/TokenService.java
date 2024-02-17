@@ -24,10 +24,8 @@ public class TokenService {
     private String secret;
 
     public String generateToken(GeneralUser usr){
-
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            System.out.println("TA LA: "+secret);
             String token = JWT.create()
                     .withIssuer("devmotel-auth-api")
                     .withSubject(usr.getLogin())
