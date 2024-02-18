@@ -39,7 +39,7 @@ public class EmploeeyController {
         try {
             var usernamePassword = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
             var auth = this.authenticationManager.authenticate(usernamePassword);
-            var token = tokenService.generateToken((Emploeey) auth.getPrincipal());
+            var token = tokenService.generateEmploeeyToken((Emploeey) auth.getPrincipal());
             return ResponseEntity.ok(new LoginResponseDTO(token));
         }catch (Exception e){
             return ResponseEntity
@@ -48,8 +48,9 @@ public class EmploeeyController {
         }
     }
 
-    @GetMapping("/get-by-registration/{registration}")
-    public ResponseEntity<EmploeeyInfoDTO> getByCpf(@PathVariable String registration){
+    @GetMapping("/get-informations")
+    public ResponseEntity<EmploeeyInfoDTO> getInformations(@RequestHeader("Authorization") String token){
+        Long registration = tokenService.getEmploeeyRegistration(token);
         EmploeeyInfoDTO emploeey = service.getEmploeeyByRegistration(registration);
         return ResponseEntity.ok(emploeey);
     }

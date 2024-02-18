@@ -36,8 +36,8 @@ public class CustomerServiceImpl implements CustomerService {
         repository.save(customer);
     }
 
-    public CustomerInfoDTO getCustomerByCpf(String cpf) {
-        Customer customer = repository.findByCpf(Long.parseLong(cpf));
+    public CustomerInfoDTO getCustomerByCpf(Long cpf) {
+        Customer customer = repository.findByCpf(cpf);
         if (customer == null) throw new DefaultError("Usuário não encontrado.", HttpStatus.NOT_FOUND);
         return new CustomerInfoDTO(
                 customer.getName(),

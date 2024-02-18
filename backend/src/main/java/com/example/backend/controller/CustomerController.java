@@ -41,7 +41,7 @@ public class CustomerController {
         try {
             var usernamePassword = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
             var auth = this.authenticationManager.authenticate(usernamePassword);
-            var token = tokenService.generateToken((Customer) auth.getPrincipal());
+            var token = tokenService.generateCustomerToken((Customer) auth.getPrincipal());
             return ResponseEntity.ok(new LoginResponseDTO(token));
         }catch (Exception e){
             return ResponseEntity
@@ -50,8 +50,9 @@ public class CustomerController {
         }
     }
 
-    @GetMapping("/get-by-cpf/{cpf}")
-    public ResponseEntity<CustomerInfoDTO> getByCpf(@PathVariable String cpf){
+    @GetMapping("/get-informations")
+    public ResponseEntity<CustomerInfoDTO> getInformations(@RequestHeader("Authorization") String token){
+        Long cpf = tokenService.getCustomerCpf(token);
         CustomerInfoDTO customer = service.getCustomerByCpf(cpf);
         return ResponseEntity.ok(customer);
     }

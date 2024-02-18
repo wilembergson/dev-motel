@@ -22,13 +22,11 @@ public class AuthorizationService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails customer = customerRepository.findByLogin(username);
         if (customer != null) {
-            System.out.println(customer.getAuthorities());
             return customer;
         }
 
         UserDetails employee = emploeeyRepository.findByLogin(username);
         if (employee != null) {
-            System.out.println(employee.getAuthorities());
             return employee;
         }
         throw new UsernameNotFoundException("Usuário não encontrado: " + username);

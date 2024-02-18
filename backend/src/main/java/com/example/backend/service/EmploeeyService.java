@@ -9,5 +9,5 @@ public interface EmploeeyService {
 
     public void newEmploeey(NewEmploeeyDTO dto);
 
-    public EmploeeyInfoDTO getEmploeeyByRegistration(String registration);
+    public EmploeeyInfoDTO getEmploeeyByRegistration(Long registration);
 }

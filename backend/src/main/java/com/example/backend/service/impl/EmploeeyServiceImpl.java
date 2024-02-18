@@ -41,8 +41,8 @@ public class EmploeeyServiceImpl implements EmploeeyService {
         repository.save(emploeey);
     }
 
-    public EmploeeyInfoDTO getEmploeeyByRegistration(String registration) {
-        Emploeey emploeey = repository.findByRegistration(Long.parseLong(registration));
+    public EmploeeyInfoDTO getEmploeeyByRegistration(Long registration) {
+        Emploeey emploeey = repository.findByRegistration(registration);
         if (emploeey == null) throw new DefaultError("Usuário não encontrado.", HttpStatus.NOT_FOUND);
         return new EmploeeyInfoDTO(
                 emploeey.getName(),

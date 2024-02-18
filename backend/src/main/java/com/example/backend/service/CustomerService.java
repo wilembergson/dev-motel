@@ -8,5 +8,5 @@ public interface CustomerService {
 
     public void newCustomer(NewCustomerDTO dto);
 
-    public CustomerInfoDTO getCustomerByCpf(String cpf);
+    public CustomerInfoDTO getCustomerByCpf(Long cpf);
 }
