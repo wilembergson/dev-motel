@@ -3,8 +3,10 @@ package com.example.backend.service.impl;
 import com.example.backend.exceptions.DefaultError;
 import com.example.backend.model.dto.CustomerInfoDTO;
 import com.example.backend.model.dto.NewCustomerDTO;
+import com.example.backend.model.dto.UpdateCustomerDTO;
 import com.example.backend.model.entity.Customer;
 import com.example.backend.repository.CustomerRepository;
+import com.example.backend.security.TokenService;
 import com.example.backend.service.CustomerService;
 import com.example.backend.utils.RolesEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerRepository repository;
+
+    @Autowired
+    private TokenService tokenService;
 
     public void newCustomer(NewCustomerDTO dto) {
         String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
@@ -47,5 +52,16 @@ public class CustomerServiceImpl implements CustomerService {
                 customer.getLogin(),
                 customer.getRole()
         );
+    }
+
+    public void updateInformations(Long cpf, UpdateCustomerDTO dto) {
+         Customer customer = repository.findByCpf(cpf);
+        if (customer == null) throw new DefaultError("Usuário não encontrado.", HttpStatus.NOT_FOUND);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
+        customer.setPhone(dto.phone());
+        customer.setEmail(dto.email());
+        customer.setLogin(dto.login());
+        customer.setPassword(encryptedPassword);
+        repository.save(customer);
     }
 }

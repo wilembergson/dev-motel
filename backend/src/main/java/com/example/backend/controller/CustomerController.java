@@ -1,9 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.model.dto.CustomerInfoDTO;
-import com.example.backend.model.dto.LoginDTO;
-import com.example.backend.model.dto.LoginResponseDTO;
-import com.example.backend.model.dto.NewCustomerDTO;
+import com.example.backend.model.dto.*;
 import com.example.backend.model.entity.Customer;
 import com.example.backend.security.TokenService;
 import com.example.backend.service.CustomerService;
@@ -55,5 +52,12 @@ public class CustomerController {
         Long cpf = tokenService.getCustomerCpf(token);
         CustomerInfoDTO customer = service.getCustomerByCpf(cpf);
         return ResponseEntity.ok(customer);
+    }
+
+    @PutMapping("/update-informations")
+    public ResponseEntity updateInformations(@RequestHeader("Authorization") String token, @RequestBody UpdateCustomerDTO dto){
+        Long cpf = tokenService.getCustomerCpf(token);
+        service.updateInformations(cpf, dto);
+        return ResponseEntity.ok(Map.of("mensagem", "Dados atualizados com sucesso."));
     }
 }

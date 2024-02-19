@@ -49,6 +49,7 @@ public class SecurityConfiguration {
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/emploeey/new-emploeey")).permitAll()
                         .requestMatchers(mvc.pattern(HttpMethod.POST, "/emploeey/login")).permitAll()
                         .requestMatchers(mvc.pattern(HttpMethod.GET, "/customer/get-informations")).hasRole(RolesEnum.CUSTOMER.getRoleName())
+                        .requestMatchers(mvc.pattern(HttpMethod.PUT, "/customer/update-informations")).hasRole(RolesEnum.CUSTOMER.getRoleName())
                         .requestMatchers(mvc.pattern(HttpMethod.GET, "/emploeey/get-informations")).hasRole(RolesEnum.EMPLOEEY.getRoleName())
                         .anyRequest().authenticated()
                 )
