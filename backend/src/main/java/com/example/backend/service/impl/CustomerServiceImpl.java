@@ -11,6 +11,7 @@ import com.example.backend.service.CustomerService;
 import com.example.backend.utils.RolesEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -26,6 +27,15 @@ public class CustomerServiceImpl implements CustomerService {
     private TokenService tokenService;
 
     public void newCustomer(NewCustomerDTO dto) {
+        Customer foundByEmail = repository.findByEmail(dto.email());
+        if(foundByEmail != null) throw new DefaultError("Email já utilizado por outro usuário.", HttpStatus.CONFLICT);
+
+        Customer foundByCpf = repository.findByCpf(dto.cpf());
+        if(foundByCpf != null) throw new DefaultError("Já existe uma conta para este CPF.", HttpStatus.CONFLICT);
+
+        UserDetails foundByLogin = repository.findByLogin(dto.login());
+        if(foundByLogin != null) throw new DefaultError("Login já utilizado por outro usuário. Tente outro.", HttpStatus.CONFLICT);
+
         String encryptedPassword = new BCryptPasswordEncoder().encode(dto.password());
         Customer customer = new Customer(
                 UUID.randomUUID().toString(),

@@ -4,6 +4,7 @@ import com.example.backend.model.dto.*;
 import com.example.backend.model.entity.Customer;
 import com.example.backend.security.TokenService;
 import com.example.backend.service.CustomerService;
+import com.example.backend.service.EmailService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +28,13 @@ public class CustomerController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping("/new-customer")
     public ResponseEntity<Object> newCustomer(@RequestBody @Valid NewCustomerDTO dto){
         service.newCustomer(dto);
+        emailService.sendCreateAccountEmail(dto.email());
         return new ResponseEntity<>(Map.of("mensagem", "Conta criada."), HttpStatus.CREATED);
     }
 
