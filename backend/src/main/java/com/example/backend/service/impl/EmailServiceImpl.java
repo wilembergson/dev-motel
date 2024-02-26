@@ -29,7 +29,7 @@ public class EmailServiceImpl implements EmailService {
         message.setFrom("noreply@email.com");
         message.setTo(email);
         message.setSubject("Conta DevMotel criada.");
-        message.setText("Sua conta no site da DevMotel for criada com sucesso.");
+        message.setText("Sua conta no site da DevMotel for criada com sucesso. Faça o login.");
         mailSender.send(message);
     }
 }
